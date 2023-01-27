@@ -1,0 +1,118 @@
+package Projects;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class RockPaperScissor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        byte comScissor = 0;
+        byte comRock = 0;
+        byte comPaper = 0;
+        byte playerScissor = 0;
+        byte playerRock = 0;
+        byte playerPaper = 0;
+        byte playerW = 0;
+        byte playerL = 0;
+        byte draw = 0;
+        byte totalGames = 0;
+
+        String[] rps = {"Rock", "Paper", "Scissors"};
+        String compMove = rps[new Random().nextInt(rps.length)];
+
+        System.out.println("Make your move!");
+        String player;
+
+        while (true) {
+            player = scanner.nextLine();
+            compMove = rps[new Random().nextInt(rps.length)];
+
+            if (player.equals("Stop")) {
+                System.out.printf("Games Played: %d%n", totalGames);
+                System.out.printf("Games Won: %d%n", playerW);
+                System.out.printf("Games Lost: %d%n", playerL);
+                System.out.printf("Games Ended in Draw: %d%n", draw);
+                System.out.printf("You have played: %d, %d, %d%n", playerRock, playerPaper, playerScissor);
+                System.out.printf("Your opponent played: %d, %d, %d%n",comRock, comPaper,comScissor);
+                break;
+            }
+            if (player.equals("Rock") || player.equals("Paper") || player.equals("Scissors")) {
+                System.out.println("Your opponent played:" + compMove);
+
+                switch (compMove) {
+                    case "Rock":
+                        comRock++;
+                        break;
+                    case "Paper":
+                        comPaper++;
+                        break;
+                    case "Scissors":
+                        comScissor++;
+                        break;
+                }
+                if (player.equals(compMove)) {
+                    switch (player) {
+                        case "Rock":
+                            playerRock++;
+                            break;
+                        case "Paper":
+                            playerPaper++;
+                            break;
+                        case "Scissors":
+                            playerScissor++;
+                            break;
+                    }
+                    draw++;
+                    System.out.println("It's a draw");
+                    System.out.println("Try again. For exit type Stop.");
+                } else if (player.equals("Rock")) {
+                    playerRock++;
+                    if (compMove.equals("Paper")) {
+                        comPaper++;
+                        playerL++;
+                        System.out.println("You lost");
+                        System.out.println("Try again. For exit type Stop.");
+                    } else {
+                        comScissor++;
+                        playerW++;
+                        System.out.println("You won");
+                        System.out.println("Try again. For exit type Stop.");
+                    }
+                } else if (player.equals("Paper")) {
+                    playerPaper++;
+                    if (compMove.equals("Rock")) {
+                        comRock++;
+                        playerW++;
+                        System.out.println("You won");
+                        System.out.println("Try again. For exit type Stop.");
+                    } else {
+                        comScissor++;
+                        playerL++;
+                        System.out.println("You lost");
+                        System.out.println("Try again. For exit type Stop.");
+                    }
+                } else {
+                    playerScissor++;
+                    if (compMove.equals("Rock")) {
+                        comRock++;
+                        playerL++;
+                        System.out.println("You lost");
+                        System.out.println("Try again. For exit type Stop.");
+                    } else {
+                        comPaper++;
+                        playerW++;
+                        System.out.println("You won");
+                        System.out.println("Try again. For exit type Stop.");
+                    }
+                }
+                totalGames++;
+
+            } else {
+                System.out.println("Wrong Move. Try Again!");
+                continue;
+            }
+
+        }
+    }
+}
